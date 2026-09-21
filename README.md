@@ -1,8 +1,23 @@
 # Julio Cubas — portafolio personal
 
-Sitio estático independiente para la marca personal de Julio Cubas.
+Sitio estático de la marca personal de Julio Cubas: sistemas, automatización, desarrollo web y reverse prompt engineering.
 
-## Preview local
+## Sitio publicado
+
+- **Producción:** https://celaya51.github.io/julio-cubas/
+
+## Estructura
+
+```
+index.html      # Página única (hero, servicios, trabajo, stack, contacto)
+styles.css      # Estilos del sitio
+script.js       # Interacciones (menú, reveals, etc.)
+.github/workflows/deploy.yml   # Publicación automática a GitHub Pages
+```
+
+Sin build ni dependencias: HTML, CSS y JS planos.
+
+## Vista previa local
 
 ```bash
 python3 -m http.server 4173
@@ -10,4 +25,12 @@ python3 -m http.server 4173
 
 Después abrir `http://localhost:4173` dentro de esta carpeta.
 
-No está desplegado ni conectado a ningún servicio de producción.
+## Deploy
+
+La publicación es automática por **GitHub Actions** (`deploy.yml`):
+
+1. Cada push a `main` (o un `workflow_dispatch` manual) dispara el workflow.
+2. El job `build` copia `index.html`, `styles.css` y `script.js` a `dist/`.
+3. El job `deploy` publica ese contenido en GitHub Pages.
+
+GitHub Pages está configurado con origen **GitHub Actions**, así que el workflow es la única ruta de publicación: no hay rama `gh-pages` y no se sirve nada directamente desde `main`.
